@@ -1,0 +1,31 @@
+{if $allowComments}
+<div id="CommentForm">
+<form id="NewComment" action="{$url->getIndexUrl()}" method="post">
+<fieldset>
+<legend>{$locale->tr("add_comment")}</legend>
+{dynamic}
+<div><label for="commentTopic">{$locale->pr("comment_topic")}</label><input type="text" name="commentTopic" id="commentTopic" value="{$topic}" /></div>
+<div><label for="commentText">{$locale->pr("comment_text")}&nbsp;({$locale->tr("required")})</label><textarea rows="10" cols="30" name="commentText" id="commentText"></textarea></div>
+<div><label for="userName">{$locale->pr("comment_username")}&nbsp;({$locale->tr("required")})</label>
+	{if $authuser}
+	<span id="AuthUser">{$authuser->getUsername()} ({$locale->tr("form_authenticated")})</span>
+	<input type="hidden" name="userName" id="userNameHidden" value="{if $authuser}{$authuser->getUsername()}{/if}" /></div>
+	{else}
+	<input type="text" name="userName" id="userName" value="" /></div>
+	{/if}
+<div><label for="userEmail">{$locale->tr("comment_email")}</label><input type="text" name="userEmail" id="userEmail" value="" /></div>
+<div><label for="userUrl">{$locale->tr("comment_url")}</label><input type="text" name="userUrl" id="userUrl" value="" /></div>
+{/dynamic}
+{if $authimage}{if $authimage->isEnabled()}
+<div><label for="authImage">{$locale->tr("authimage_type_code")}</label>
+<input type="text" name="authImage" id="authImage" value="" />&nbsp;{$authimage->show()}</div>
+{/if}{/if}
+<div id="Submit"><input id="Add" type="submit" value="{$locale->pr("comment_send")}" name="Add" />
+<input type="hidden" name="op" value="AddComment" />
+<input type="hidden" name="articleId" value="{$post->getId()}" />
+<input type="hidden" name="blogId" value="{$blog->getId()}" />
+<input type="hidden" name="parentId" value="{$parentId}" /></div>
+</fieldset>
+</form>
+</div>
+{/if}
